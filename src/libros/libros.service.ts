@@ -5,11 +5,20 @@ export class LibrosService {
   crearLibro(): any {
     return 'Crear Libro';
   }
-  obtenerTodos(): any {
-    return 'Obtener todos listo';
+  obtenerTodos(params): any {
+    let msg = `obtenerTodos listo. Con los Parámetros `;
+
+    if (params.order !== undefined) {
+      msg = msg + `order: ${params.order}`;
+    }
+    if (params.limit !== undefined) {
+      msg = msg + ` limit: ${params.limit}`;
+    }
+
+    return msg;
   }
-  obtenerLibro() {
-    return 'obtener libro listo';
+  obtenerLibro(libroId: string) {
+    return `Obtener libro con Id: ${libroId}`;
   }
   actualizarLibro() {
     return 'actualizar libro listo';

@@ -1,5 +1,15 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  Param,
+  Req,
+} from '@nestjs/common';
+
 import { LibrosService } from './libros.service';
+import { Request } from 'express';
 
 @Controller('libros')
 export class LibrosController {
@@ -11,13 +21,13 @@ export class LibrosController {
   }
 
   @Get()
-  obtenerTodos() {
-    return this.librosService.obtenerTodos();
+  obtenerTodos(@Req() request: Request) {
+    return this.librosService.obtenerTodos(request.query);
   }
 
-  @Get()
-  obtenerLibro() {
-    return this.librosService.obtenerLibro();
+  @Get(':libroId')
+  obtenerLibro(@Param('libroId') libroId: string) {
+    return this.librosService.obtenerLibro(libroId);
   }
 
   @Patch()
