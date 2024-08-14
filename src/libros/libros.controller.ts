@@ -6,47 +6,59 @@ import {
   Post,
   Param,
   Req,
+  Body,
 } from '@nestjs/common';
 
 import { LibrosService } from './libros.service';
 import { Request } from 'express';
+import { LibroDto } from './libro.dto';
+import { Libro } from './libros.entity';
 
 @Controller('libros')
 export class LibrosController {
   constructor(private librosService: LibrosService) {}
 
   @Post()
-  crearLibro() {
-    return this.librosService.crearLibro();
+  crearLibro(@Body() nuevoLibro: LibroDto): Promise<Libro> {
+    return this.librosService.crearLibro(nuevoLibro);
   }
 
   @Get()
-  obtenerTodos(@Req() request: Request) {
+  obtenerTodos(@Req() request: Request): Promise<Libro[]> {
     return this.librosService.obtenerTodos(request.query);
   }
 
   @Get(':libroId')
-  obtenerLibro(@Param('libroId') libroId: string) {
+  obtenerLibro(@Param('libroId') libroId: string): Promise<Libro> {
     return this.librosService.obtenerLibro(libroId);
   }
 
-  @Patch()
-  actualizarLibro() {
-    return this.librosService.actualizarLibro();
+  @Patch('/update/:libroId')
+  actualizarLibro(
+    @Param('libroId') libroId: string,
+    @Body() nuevoLibro: LibroDto,
+  ): Promise<Libro> {
+    return this.librosService.actualizarLibro(libroId, nuevoLibro);
   }
 
-  @Patch()
-  activarLibro() {
-    return this.librosService.activarLibro();
+  @Patch('/activate/:libroId')
+  activarLibro(
+    @Param('libroId') libroId: string,
+    @Body() nuevoLibro: LibroDto,
+  ): Promise<Libro> {
+    return this.librosService.activarLibro(libroId, nuevoLibro);
   }
 
-  @Delete()
-  desactivarLibro() {
-    return this.librosService.desactivarLibro();
+  @Delete('/desactivate/:libroId')
+  desactivarLibro(
+    @Param('libroId') libroId: string,
+    @Body() nuevoLibro: LibroDto,
+  ): Promise<Libro> {
+    return this.librosService.desactivarLibro(libroId, nuevoLibro);
   }
 
-  @Delete()
-  eliminarLibro() {
-    return this.librosService.eliminarLibro();
+  @Delete(':libroId')
+  eliminarLibro(@Param('libroId') libroId: string): Promise<Libro> {
+    return this.librosService.eliminarLibro(libroId);
   }
 }

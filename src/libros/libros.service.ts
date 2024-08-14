@@ -1,35 +1,65 @@
 import { Injectable } from '@nestjs/common';
+import { LibroDto } from './libro.dto';
+import { Libro } from './libros.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class LibrosService {
-  crearLibro(): any {
-    return 'Crear Libro';
-  }
-  obtenerTodos(params): any {
-    let msg = `obtenerTodos listo. Con los Parámetros `;
+  constructor(
+    @InjectRepository(Libro) private librosRepository: Repository<Libro>,
+  ) {}
 
-    if (params.order !== undefined) {
-      msg = msg + `order: ${params.order}`;
-    }
-    if (params.limit !== undefined) {
-      msg = msg + ` limit: ${params.limit}`;
-    }
+  crearLibro(nuevoLibro: LibroDto): Promise<Libro> {
+    return this.librosRepository.save(nuevoLibro);
+  }
+  async obtenerTodos(params): Promise<Libro[]> {
+    return await this.librosRepository.find();
+  }
+  async obtenerLibro(libroId: string): Promise<Libro> {
+    return await this.librosRepository.findOne({
+      where: { id: parseInt(libroId) },
+    });
+  }
+  async actualizarLibro(
+    libroId: string,
+    libroActualizado: LibroDto,
+  ): Promise<Libro> {
+    const toUpdate = await this.librosRepository.findOne({
+      where: { id: parseInt(libroId) },
+    });
 
-    return msg;
+    const updated = Object.assign(toUpdate, libroActualizado);
+
+    return this.librosRepository.save(updated);
   }
-  obtenerLibro(libroId: string) {
-    return `Obtener libro con Id: ${libroId}`;
+  async desactivarLibro(
+    libroId: string,
+    libroActualizado: LibroDto,
+  ): Promise<Libro> {
+    const toUpdate = await this.librosRepository.findOne({
+      where: { id: parseInt(libroId) },
+    });
+
+    toUpdate.activo = false;
+    const updated = Object.assign(toUpdate, libroActualizado);
+
+    return this.librosRepository.save(updated);
   }
-  actualizarLibro() {
-    return 'actualizar libro listo';
+  async activarLibro(
+    libroId: string,
+    libroActualizado: LibroDto,
+  ): Promise<Libro> {
+    const toUpdate = await this.librosRepository.findOne({
+      where: { id: parseInt(libroId) },
+    });
+
+    toUpdate.activo = true;
+    const updated = Object.assign(toUpdate, libroActualizado);
+
+    return this.librosRepository.save(updated);
   }
-  activarLibro() {
-    return 'activar libro listo';
-  }
-  desactivarLibro() {
-    return 'desactivar libro listo';
-  }
-  eliminarLibro() {
-    return 'eliminar libro listo';
+  async eliminarLibro(libroId: string): Promise<any> {
+    return await this.librosRepository.delete({ id: parseInt(libroId) });
   }
 }
