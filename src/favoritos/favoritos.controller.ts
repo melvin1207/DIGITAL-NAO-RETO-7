@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Param,
-  Req,
-  Body,
-} from '@nestjs/common';
+import { Controller, Delete, Get, Post, Param, Body } from '@nestjs/common';
 
 import { FavoritosService } from './favoritos.service';
-import { Request } from 'express';
 import { FavoritoDto } from './favoritos.dto';
 import { Favorito } from './favoritos.entity';
 
@@ -17,22 +8,30 @@ import { Favorito } from './favoritos.entity';
 export class FavoritosController {
   constructor(private favoritosService: FavoritosService) {}
 
-  @Post()
-  crearFavorito(@Body() nuevoFavorito: FavoritoDto): Promise<Favorito> {
-    return this.favoritosService.crearFavorito(nuevoFavorito);
+  @Post('/:libroId/:usuarioId')
+  crearFavorito(
+    @Body() nuevoFavorito: FavoritoDto,
+    @Param('libroId') libroId: string,
+    @Param('usuarioId') usuarioId: string,
+  ): Promise<Favorito> {
+    return this.favoritosService.crearFavorito(
+      nuevoFavorito,
+      libroId,
+      usuarioId,
+    );
   }
 
-  @Get()
-  obtenerTodos(@Req() request: Request): Promise<Favorito[]> {
-    return this.favoritosService.obtenerTodos(request.query);
+  @Get('/todos/:usuarioId')
+  obtenerTodos(@Param('usuarioId') usuarioId: string): Promise<Favorito[]> {
+    return this.favoritosService.obtenerTodos(usuarioId);
   }
 
-  @Get(':favoritoId')
+  @Get('/:favoritoId')
   obtenerFavorito(@Param('favoritoId') favoritoId: string): Promise<Favorito> {
     return this.favoritosService.obtenerFavorito(favoritoId);
   }
 
-  @Delete(':favoritoId')
+  @Delete('/:favoritoId')
   eliminarfavorito(@Param('favoritoId') favoritoId: string): Promise<Favorito> {
     return this.favoritosService.eliminarFavorito(favoritoId);
   }

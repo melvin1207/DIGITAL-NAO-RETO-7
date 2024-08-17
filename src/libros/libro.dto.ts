@@ -1,5 +1,4 @@
 export class LibroDto {
-  readonly id: number;
   readonly titulo: string;
   readonly genero: string;
   readonly resumen: string;

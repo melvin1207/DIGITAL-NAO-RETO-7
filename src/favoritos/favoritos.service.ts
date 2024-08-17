@@ -11,17 +11,32 @@ export class FavoritosService {
     private favoritosRepository: Repository<Favorito>,
   ) {}
 
-  crearFavorito(nuevoFavorito: FavoritoDto): Promise<Favorito> {
+  async crearFavorito(
+    nuevoFavorito: FavoritoDto,
+    libroId: string,
+    usuarioId: string,
+  ): Promise<Favorito> {
+    nuevoFavorito.libroId = parseInt(libroId);
+    nuevoFavorito.usuarioId = parseInt(usuarioId);
     return this.favoritosRepository.save(nuevoFavorito);
   }
 
-  async obtenerTodos(params): Promise<Favorito[]> {
-    return await this.favoritosRepository.find();
+  async obtenerTodos(usuarioId: string): Promise<Favorito[]> {
+    return await this.favoritosRepository.find({
+      where: { usuarioId: parseInt(usuarioId) },
+      relations: {
+        libro: true,
+      },
+    });
   }
 
   async obtenerFavorito(favoritoId: string): Promise<Favorito> {
     return await this.favoritosRepository.findOne({
       where: { id: parseInt(favoritoId) },
+      relations: {
+        libro: true,
+        usuario: true,
+      },
     });
   }
 

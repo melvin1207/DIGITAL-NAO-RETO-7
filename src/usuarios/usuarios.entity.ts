@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Favorito } from 'src/favoritos/favoritos.entity';
 
 @Entity()
 export class Usuario {
@@ -11,11 +12,14 @@ export class Usuario {
   @Column()
   apellido: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
+
+  @OneToMany(() => Favorito, (favorito) => favorito.usuario)
+  favoritos: Favorito[];
 
   @Column()
   activo: boolean;

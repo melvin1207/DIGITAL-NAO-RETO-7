@@ -24,7 +24,9 @@ export class UsuariosService {
   async datosUsuario(usuarioId: string): Promise<Usuario> {
     return await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
-      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
+      relations: {
+        favoritos: true,
+      },
     });
   }
 
@@ -34,7 +36,6 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
-      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     const updated = Object.assign(toUpdate, usuarioActualizado);
@@ -48,7 +49,6 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
-      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     toUpdate.activo = false;
@@ -63,7 +63,6 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
-      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     toUpdate.activo = true;

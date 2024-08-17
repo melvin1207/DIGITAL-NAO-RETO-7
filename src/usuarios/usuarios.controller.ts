@@ -6,6 +6,8 @@ import {
   Delete,
   Param,
   Body,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { UsuariosService } from './usuarios.service';
@@ -22,11 +24,13 @@ export class UsuariosController {
   }
 
   @Get(':usuarioId')
+  @UseInterceptors(ClassSerializerInterceptor)
   obtenerUsuario(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
     return this.usuariosService.datosUsuario(usuarioId);
   }
 
   @Patch(':usuarioId')
+  @UseInterceptors(ClassSerializerInterceptor)
   actualizarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,
@@ -35,6 +39,7 @@ export class UsuariosController {
   }
 
   @Patch('/activate/:usuarioId')
+  @UseInterceptors(ClassSerializerInterceptor)
   activarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,
@@ -43,6 +48,7 @@ export class UsuariosController {
   }
 
   @Delete('/desactivate/:usuarioId')
+  @UseInterceptors(ClassSerializerInterceptor)
   desactivarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,

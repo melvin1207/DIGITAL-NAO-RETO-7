@@ -50,7 +50,7 @@ export class LibrosService {
 
     return this.librosRepository.save(updated);
   }
-  
+
   async activarLibro(
     libroId: string,
     libroActualizado: LibroDto,
@@ -64,7 +64,7 @@ export class LibrosService {
 
     return this.librosRepository.save(updated);
   }
- 
+
   async eliminarLibro(libroId: string): Promise<any> {
     return await this.librosRepository.delete({ id: parseInt(libroId) });
   }
