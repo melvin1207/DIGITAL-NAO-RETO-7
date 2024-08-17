@@ -11,22 +11,13 @@ export class UsuariosService {
     @InjectRepository(Usuario) private usuariosRepository: Repository<Usuario>,
   ) {}
 
-  async crearUsuario(nuevoUsuario: UsuarioDto): Promise<Usuario> {
-    //Se hace el HASH del password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(nuevoUsuario.password, salt);
-
-    nuevoUsuario.password = hashedPassword;
-
-    return this.usuariosRepository.save(nuevoUsuario);
-  }
-
   async datosUsuario(usuarioId: string): Promise<Usuario> {
     return await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
       relations: {
         favoritos: true,
       },
+      select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
   }
 
@@ -36,6 +27,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
 
     const updated = Object.assign(toUpdate, usuarioActualizado);
@@ -49,6 +41,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
 
     toUpdate.activo = false;
@@ -63,6 +56,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
 
     toUpdate.activo = true;
