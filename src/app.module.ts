@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LibrosModule } from './libros/libros.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { FavoritosModule } from './favoritos/favoritos.module';
+
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,6 +13,8 @@ dotenv.config();
 @Module({
   imports: [
     LibrosModule,
+    UsuariosModule,
+    FavoritosModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
 
