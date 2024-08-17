@@ -1,4 +1,5 @@
+//DTO para un favorito
 export class FavoritoDto {
-  usuarioId: number;
-  libroId: number;
+  usuarioId: number; //FK para el usuario
+  libroId: number; //FK para el libro
 }
