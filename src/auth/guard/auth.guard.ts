@@ -1,3 +1,4 @@
+//librerias principales
 import {
   CanActivate,
   ExecutionContext,
@@ -7,10 +8,11 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
+//dotenv para menejo de variables de entorno
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 
+//función del token
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
