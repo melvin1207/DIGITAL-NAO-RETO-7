@@ -13,14 +13,17 @@ export class LibrosService {
   crearLibro(nuevoLibro: LibroDto): Promise<Libro> {
     return this.librosRepository.save(nuevoLibro);
   }
+
   async obtenerTodos(params): Promise<Libro[]> {
     return await this.librosRepository.find();
   }
+
   async obtenerLibro(libroId: string): Promise<Libro> {
     return await this.librosRepository.findOne({
       where: { id: parseInt(libroId) },
     });
   }
+
   async actualizarLibro(
     libroId: string,
     libroActualizado: LibroDto,
@@ -33,6 +36,7 @@ export class LibrosService {
 
     return this.librosRepository.save(updated);
   }
+
   async desactivarLibro(
     libroId: string,
     libroActualizado: LibroDto,
@@ -46,6 +50,7 @@ export class LibrosService {
 
     return this.librosRepository.save(updated);
   }
+  
   async activarLibro(
     libroId: string,
     libroActualizado: LibroDto,
@@ -59,6 +64,7 @@ export class LibrosService {
 
     return this.librosRepository.save(updated);
   }
+ 
   async eliminarLibro(libroId: string): Promise<any> {
     return await this.librosRepository.delete({ id: parseInt(libroId) });
   }
