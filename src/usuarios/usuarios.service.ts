@@ -3,6 +3,7 @@ import { UsuarioDto } from './usuarios.dto';
 import { Usuario } from './usuarios.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
@@ -10,13 +11,20 @@ export class UsuariosService {
     @InjectRepository(Usuario) private usuariosRepository: Repository<Usuario>,
   ) {}
 
-  crearUsuario(nuevoUsuario: UsuarioDto): Promise<Usuario> {
+  async crearUsuario(nuevoUsuario: UsuarioDto): Promise<Usuario> {
+    //Se hace el HASH del password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(nuevoUsuario.password, salt);
+
+    nuevoUsuario.password = hashedPassword;
+
     return this.usuariosRepository.save(nuevoUsuario);
   }
 
   async datosUsuario(usuarioId: string): Promise<Usuario> {
     return await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
   }
 
@@ -26,6 +34,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     const updated = Object.assign(toUpdate, usuarioActualizado);
@@ -39,6 +48,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     toUpdate.activo = false;
@@ -53,6 +63,7 @@ export class UsuariosService {
   ): Promise<Usuario> {
     const toUpdate = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) },
+      select: ['id', 'nombre', 'apellido', 'email', 'activo'],
     });
 
     toUpdate.activo = true;

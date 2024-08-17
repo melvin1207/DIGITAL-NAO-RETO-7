@@ -17,17 +17,17 @@ export class UsuariosController {
   constructor(private usuariosService: UsuariosService) {}
 
   @Post()
-  crearLibro(@Body() nuevoUsuario: UsuarioDto): Promise<Usuario> {
+  crearUsuario(@Body() nuevoUsuario: UsuarioDto): Promise<Usuario> {
     return this.usuariosService.crearUsuario(nuevoUsuario);
   }
 
   @Get(':usuarioId')
-  obtenerLibro(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
+  obtenerUsuario(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
     return this.usuariosService.datosUsuario(usuarioId);
   }
 
-  @Patch('/update/:usuarioId')
-  actualizarLibro(
+  @Patch(':usuarioId')
+  actualizarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,
   ): Promise<Usuario> {
@@ -35,7 +35,7 @@ export class UsuariosController {
   }
 
   @Patch('/activate/:usuarioId')
-  activarLibro(
+  activarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,
   ): Promise<Usuario> {
@@ -43,7 +43,7 @@ export class UsuariosController {
   }
 
   @Delete('/desactivate/:usuarioId')
-  desactivarLibro(
+  desactivarUsuario(
     @Param('usuarioId') usuarioId: string,
     @Body() nuevoUsuario: UsuarioDto,
   ): Promise<Usuario> {
@@ -51,7 +51,7 @@ export class UsuariosController {
   }
 
   @Delete(':usuarioId')
-  eliminarLibro(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
+  eliminarUsuario(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
     return this.usuariosService.eliminarUsuario(usuarioId);
   }
 }

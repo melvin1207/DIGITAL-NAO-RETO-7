@@ -3,6 +3,6 @@ export class UsuarioDto {
   readonly nombre: string;
   readonly apellido: string;
   readonly email: string;
-  readonly password: string;
+  password: string;
   activo: boolean;
 }
