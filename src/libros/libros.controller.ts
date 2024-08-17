@@ -1,3 +1,4 @@
+//librerias principales
 import {
   Controller,
   Delete,
@@ -9,65 +10,76 @@ import {
   Body,
   UseGuards,
 } from '@nestjs/common';
-
-import { LibrosService } from './libros.service';
 import { Request } from 'express';
+
+//Se importa el DTO, la entidad y los servicios de los libros
+import { LibrosService } from './libros.service';
 import { LibroDto } from './libro.dto';
 import { Libro } from './libros.entity';
+
+//Función para verificar el JWT
 import { AuthGuard } from 'src/auth/guard/auth.guard';
 
+//Controlador para manejar los libros
 @Controller('libros')
 export class LibrosController {
-  constructor(private librosService: LibrosService) {}
+  constructor(private librosService: LibrosService) {} //constructor
 
-  @Post()
-  @UseGuards(AuthGuard)
+  //Crear un nuevo libro
+  @Post() //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   crearLibro(@Body() nuevoLibro: LibroDto): Promise<Libro> {
-    return this.librosService.crearLibro(nuevoLibro);
+    return this.librosService.crearLibro(nuevoLibro); //llamado al servicio
   }
 
-  @Get()
-  @UseGuards(AuthGuard)
+  //se obtienen todos los libros
+  @Get() //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   obtenerTodos(@Req() request: Request): Promise<Libro[]> {
-    return this.librosService.obtenerTodos(request.query);
+    return this.librosService.obtenerTodos(request.query); //llamado al servicio
   }
 
-  @Get(':libroId')
-  @UseGuards(AuthGuard)
+  //se obtiene un libro
+  @Get(':libroId') //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   obtenerLibro(@Param('libroId') libroId: string): Promise<Libro> {
-    return this.librosService.obtenerLibro(libroId);
+    return this.librosService.obtenerLibro(libroId); //llamado al servicio
   }
 
-  @Patch('/update/:libroId')
-  @UseGuards(AuthGuard)
+  //se modifica un libro
+  @Patch('/update/:libroId') //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   actualizarLibro(
     @Param('libroId') libroId: string,
     @Body() nuevoLibro: LibroDto,
   ): Promise<Libro> {
-    return this.librosService.actualizarLibro(libroId, nuevoLibro);
+    return this.librosService.actualizarLibro(libroId, nuevoLibro); //llamado al servicio
   }
 
-  @Patch('/activate/:libroId')
-  @UseGuards(AuthGuard)
+  //se activa un libro
+  @Patch('/activate/:libroId') //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   activarLibro(
     @Param('libroId') libroId: string,
     @Body() nuevoLibro: LibroDto,
   ): Promise<Libro> {
-    return this.librosService.activarLibro(libroId, nuevoLibro);
+    return this.librosService.activarLibro(libroId, nuevoLibro); //llamado al servicio
   }
 
-  @Delete('/desactivate/:libroId')
-  @UseGuards(AuthGuard)
+  //se desactiva un libro
+  @Delete('/desactivate/:libroId') //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   desactivarLibro(
     @Param('libroId') libroId: string,
     @Body() nuevoLibro: LibroDto,
   ): Promise<Libro> {
-    return this.librosService.desactivarLibro(libroId, nuevoLibro);
+    return this.librosService.desactivarLibro(libroId, nuevoLibro); //llamado al servicio
   }
 
-  @Delete(':libroId')
-  @UseGuards(AuthGuard)
+  //se elimina un libro
+  @Delete(':libroId') //ruta que usa
+  @UseGuards(AuthGuard) // se protege con JWT
   eliminarLibro(@Param('libroId') libroId: string): Promise<Libro> {
-    return this.librosService.eliminarLibro(libroId);
+    return this.librosService.eliminarLibro(libroId); //llamado al servicio
   }
 }
