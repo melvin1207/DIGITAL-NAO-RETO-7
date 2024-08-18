@@ -7,6 +7,9 @@ import {
   ManyToOne,
 } from 'typeorm';
 
+//librerias para la documentación
+import { ApiProperty } from '@nestjs/swagger';
+
 //se importa las entidades de libro y usuario para las FK
 import { Libro } from 'src/libros/libros.entity';
 import { Usuario } from 'src/usuarios/usuarios.entity';
@@ -15,10 +18,12 @@ import { Usuario } from 'src/usuarios/usuarios.entity';
 @Entity()
 export class Favorito {
   //Columna principal
+  @ApiProperty({ example: 1 }) //propiedad para la documentación
   @PrimaryGeneratedColumn()
   id: number;
 
   //creación de la columna para el manejo de los id de usuario
+  @ApiProperty({ example: 1 }) //propiedad para la documentación
   @Column({ name: 'usuario_id' })
   usuarioId: number;
 
@@ -28,6 +33,7 @@ export class Favorito {
   usuario: Usuario;
 
   //creación de la columna para el manejo de los id de libro
+  @ApiProperty({ example: 1 }) //propiedad para la documentación
   @Column({ name: 'libro_id' })
   libroId: number;
 
