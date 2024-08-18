@@ -35,7 +35,7 @@ export class AuthController {
   @Post('login') //ruta que utiliza
   @ApiOperation({ summary: 'Se loguea un usuario' }) //descripcion
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Datos del usuario',
     type: LoginDto,
   }) //respuesta positiva

@@ -29,7 +29,7 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 @ApiTags('usuarios') //tag de los usuarios
 @Controller('usuarios')
 @UseGuards(AuthGuard) // se protege con JWT
-@ApiBearerAuth('acces-token') // metodo de autorizacion
+@ApiBearerAuth('access-token') // metodo de autorizacion
 export class UsuariosController {
   constructor(private usuariosService: UsuariosService) {} //constructor
 

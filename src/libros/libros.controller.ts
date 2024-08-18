@@ -32,7 +32,7 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 @ApiTags('libros') //tag de los libros
 @Controller('libros')
 @UseGuards(AuthGuard) // se protege con JWT
-@ApiBearerAuth('acces-token') // metodo de autorizacion
+@ApiBearerAuth('access-token') // metodo de autorizacion
 export class LibrosController {
   constructor(private librosService: LibrosService) {} //constructor
 

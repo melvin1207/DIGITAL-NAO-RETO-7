@@ -29,7 +29,7 @@ import {
 @ApiTags('favoritos') //tag de los favoritos
 @Controller('favoritos')
 @UseGuards(AuthGuard) // se protege con JWT
-@ApiBearerAuth('acces-token') // metodo de autorizacion
+@ApiBearerAuth('access-token') // metodo de autorizacion
 export class FavoritosController {
   constructor(private favoritosService: FavoritosService) {} //Constructor
 
