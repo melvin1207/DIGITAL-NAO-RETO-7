@@ -47,34 +47,25 @@ export class LibrosService {
   }
 
   //se desactiva el libro
-  async desactivarLibro(
-    //parametros necesarios
-    libroId: string,
-    libroActualizado: LibroDto,
-  ): Promise<Libro> {
-    const toUpdate = await this.librosRepository.findOne({
+  async desactivarLibro(libroId: string): Promise<Libro> {
+    const updateLibro = await this.librosRepository.findOne({
       where: { id: parseInt(libroId) }, //se busca el libro en la BD  con el ID
     });
 
-    toUpdate.activo = false;
-    const updated = Object.assign(toUpdate, libroActualizado); //se actualizan los datos
+    updateLibro.activo = false; //se actualiza el estado
 
-    return this.librosRepository.save(updated); //se guardan en la BD
+    return this.librosRepository.save(updateLibro); //se guardan en la BD
   }
 
   //se activa un libro
-  async activarLibro(
-    libroId: string,
-    libroActualizado: LibroDto,
-  ): Promise<Libro> {
-    const toUpdate = await this.librosRepository.findOne({
+  async activarLibro(libroId: string): Promise<Libro> {
+    const updateLibro = await this.librosRepository.findOne({
       where: { id: parseInt(libroId) }, //se busca el libro en la BD  con el ID
     });
 
-    toUpdate.activo = true;
-    const updated = Object.assign(toUpdate, libroActualizado); //se actualizan los datos
+    updateLibro.activo = true; //Se cambia el estado
 
-    return this.librosRepository.save(updated); //se guardan en la BD
+    return this.librosRepository.save(updateLibro); //se guardan en la BD
   }
 
   //eliminar un libro

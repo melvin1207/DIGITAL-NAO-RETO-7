@@ -80,11 +80,8 @@ export class UsuariosController {
     status: 401,
     description: 'Unauthorized',
   }) //respuesta negativa
-  activarUsuario(
-    @Param('usuarioId') usuarioId: string,
-    @Body() nuevoUsuario: UsuarioDto,
-  ): Promise<Usuario> {
-    return this.usuariosService.activarUsuario(usuarioId, nuevoUsuario); //llamado al servicio
+  activarUsuario(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
+    return this.usuariosService.activarUsuario(usuarioId); //llamado al servicio
   }
 
   //desactivar un usuario
@@ -99,11 +96,8 @@ export class UsuariosController {
     status: 401,
     description: 'Unauthorized',
   }) //respuesta negativa
-  desactivarUsuario(
-    @Param('usuarioId') usuarioId: string,
-    @Body() nuevoUsuario: UsuarioDto,
-  ): Promise<Usuario> {
-    return this.usuariosService.desactivarUsuario(usuarioId, nuevoUsuario); //llamado al servicio
+  desactivarUsuario(@Param('usuarioId') usuarioId: string): Promise<Usuario> {
+    return this.usuariosService.desactivarUsuario(usuarioId); //llamado al servicio
   }
 
   //eliminar un usuario

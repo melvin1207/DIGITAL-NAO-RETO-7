@@ -44,34 +44,30 @@ export class UsuariosService {
   async desactivarUsuario(
     //parametros requeridos
     usuarioId: string,
-    usuarioActualizado: UsuarioDto,
   ): Promise<Usuario> {
-    const toUpdate = await this.usuariosRepository.findOne({
+    const updateUsuario = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) }, //se busca el usuario con el id
       select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
 
-    toUpdate.activo = false;
-    const updated = Object.assign(toUpdate, usuarioActualizado); //se avctualiza
+    updateUsuario.activo = false; //se cambia el estado activo
 
-    return this.usuariosRepository.save(updated); //se guarda
+    return this.usuariosRepository.save(updateUsuario); //se guarda
   }
 
   //activar usuario
   async activarUsuario(
     //parametros requeridos
     usuarioId: string,
-    usuarioActualizado: UsuarioDto,
   ): Promise<Usuario> {
-    const toUpdate = await this.usuariosRepository.findOne({
+    const updateUser = await this.usuariosRepository.findOne({
       where: { id: parseInt(usuarioId) }, //se busca el usuario con el id
       select: ['id', 'nombre', 'apellido', 'email', 'favoritos', 'activo'],
     });
 
-    toUpdate.activo = true;
-    const updated = Object.assign(toUpdate, usuarioActualizado); //se actualiza
+    updateUser.activo = true;
 
-    return this.usuariosRepository.save(updated); //se guarda
+    return this.usuariosRepository.save(updateUser); //se guarda
   }
 
   //eliminar usuario

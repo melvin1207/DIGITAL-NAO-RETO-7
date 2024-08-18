@@ -115,11 +115,8 @@ export class LibrosController {
     status: 401,
     description: 'Unauthorized',
   }) //respuesta negativa
-  activarLibro(
-    @Param('libroId') libroId: string,
-    @Body() nuevoLibro: LibroDto,
-  ): Promise<Libro> {
-    return this.librosService.activarLibro(libroId, nuevoLibro); //llamado al servicio
+  activarLibro(@Param('libroId') libroId: string): Promise<Libro> {
+    return this.librosService.activarLibro(libroId); //llamado al servicio
   }
 
   //se desactiva un libro
@@ -134,11 +131,8 @@ export class LibrosController {
     status: 401,
     description: 'Unauthorized',
   }) //respuesta negativa
-  desactivarLibro(
-    @Param('libroId') libroId: string,
-    @Body() nuevoLibro: LibroDto,
-  ): Promise<Libro> {
-    return this.librosService.desactivarLibro(libroId, nuevoLibro); //llamado al servicio
+  desactivarLibro(@Param('libroId') libroId: string): Promise<Libro> {
+    return this.librosService.desactivarLibro(libroId); //llamado al servicio
   }
 
   //se elimina un libro
