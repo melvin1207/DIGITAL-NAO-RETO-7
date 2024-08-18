@@ -59,6 +59,11 @@ JWT_SECRET =
 ```
 
 ## 4. DIAGRAMA ENTIDAD RELACION Y DICCIONARIO DE DATOS
+- El diagrama entidad relacion
+<img src="./images/entidad-relacion.png" alt="Diagrama entidad Relación" />
+
+- El diccionario de datos
+<img src="./images/diccionario.png" alt="Diccionario de datos" />
 
 
 ## 5. AUTENTICACIÓN CON JWT
@@ -80,9 +85,6 @@ Al ejecutarla, la respuesta es la siguiente:
 El token que se presenta es el que se debe de ingresas en las autenticaciones de las aplicaciones que permiten probar APIS, para todos los demás endpoints, por ejemplo:
 ** /api/biblioteca/usuarios/{usuarioId} **
 <img src="./images/Screenshot 2024-08-18 065600.png" alt="Incluir token en los endpoints" />
-
-
-
 
 ## 6. PARA LA DOCUMENTACIÓN DE LOS ENDPOINTS
 Se tienen 2 opciones:
